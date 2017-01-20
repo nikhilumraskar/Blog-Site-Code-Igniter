@@ -1,13 +1,14 @@
 <?php  
 	class Articlesmodel extends CI_model
 	{
-		public function articles_list()
+		public function articles_list($limit, $offset)
 		{
 			$user_id = $this->session->userdata('user_id');
 			$query = $this->db
 								->select(['title','id'])
 								->from('article')
 								->where('user_id', $user_id)
+								->limit($limit, $offset)
 								->get();
 
 			return $query->result();
@@ -25,6 +26,19 @@
 							->get('article');
 			
 			return $q->row();
+		}
+
+		public function num_rows()
+		{
+			$user_id = $this->session->userdata('user_id');
+
+			$query = $this->db
+								->select()
+								->from('article')
+								->where('user_id', $user_id)
+								->get();
+
+			return $query->num_rows();
 		}
 
 		public function update_article($article_id, Array $article)

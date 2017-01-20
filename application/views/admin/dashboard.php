@@ -27,8 +27,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php $i = 0;  if(count($articles)): ?>
-			<?php foreach ($articles as $article): ?>
+		<?php $i = $this->uri->segment(3) + 0;  //typecasting false=>0
+		if(count($articles)): 
+			foreach ($articles as $article): ?>
 			<tr>
 				<td><?= ++$i ?></td>
 				<td><?=$article->title ?></td>
@@ -54,6 +55,7 @@
 		<?php endif;?>
 		</tbody>
 	</table>
+	<?= $this->pagination->create_links();?>
 	</div>
 	
 </div>
